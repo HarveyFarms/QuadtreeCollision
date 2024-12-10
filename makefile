@@ -1,23 +1,16 @@
 d:	main.cpp
-	g++ main.cpp src/*.cpp src/*.c classes/*.cpp `sdl-config --cflags --libs` -lSDL_image -lSDL_mixer -lSDL_ttf -Iincludes -Iclasses -Isounds; ./a.out
-
-t:	main.cpp
-	g++ main.cpp src/*.cpp src/*.c classes/*.cpp `sdl-config --cflags --libs` -lSDL_image -lSDL_mixer -lSDL_ttf -Iincludes -Iclasses -Isounds
+	g++ main.cpp src/*.cpp src/*.c classes/*.cpp `sdl-config --cflags --libs` -lSDL_image -lSDL_mixer -lSDL_ttf -Iincludes -Iclasses; ./a.out
 
 a asan:	main.cpp
-	g++ main.cpp src/*.cpp src/*.c -g -fsanitize=address classes/*.cpp `sdl-config --cflags --libs` -lSDL_image -lSDL_mixer -lSDL_ttf -Iincludes -Iclasses -Isounds
-
-r run:
+	g++ main.cpp src/*.cpp src/*.c -g -fsanitize=address classes/*.cpp `sdl-config --cflags --libs` -lSDL_image -lSDL_mixer -lSDL_ttf -Iincludes -Iclasses
+r:
 	./a.out
 
-c clean:
+c:
 	rm ./a.out
 
-git:
+g:
 	git add -A ; git commit -m "sync" ; git push
 
 p:
 	git pull
-
-g grant:
-	cd ~/galaxian_clone/ ; make r ; cd ~/mygalaxian/ ; clear
