@@ -59,7 +59,7 @@ Surface::Surface( int w, int h, int bpp, int flags)
 {
     // ADDED JOYSTICK
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE | SDL_INIT_JOYSTICK);
-	SDL_WM_SetCaption("Ryan Harvey's Galaxian Clone", NULL);
+	SDL_WM_SetCaption("Ryan Harvey's Quadtree", NULL);
 	surface = SDL_SetVideoMode(w, h, bpp, flags);
 	
 	if (surface == NULL) 
