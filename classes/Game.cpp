@@ -10,8 +10,8 @@ Game::Game() :
   surface(new Surface(W, H)),
   kp(get_keypressed()),
   keyboard(event),
-  root(1, W-1, 1, H-1),
-  quad_mode(false),
+  root(new Quad(1, W-1, 1, H-1)),
+  quad_mode(true),
   pressed(false)
 {
   srand((unsigned int) time(nullptr));
@@ -19,12 +19,18 @@ Game::Game() :
   Circle::set_surface(surface);
   Quad::set_surface(surface);
   for (int i = 0; i < AMNT_CIRCLES; ++i) {
-    v.push_back(Circle(rand() % W, rand() % H));
+    Circle * a = new Circle(rand() % W, rand() % H);
+    v.push_back(a);
+    root->v.push_back(v[i]);
   }
 }
 Game::~Game() 
 { 
   if (surface != nullptr) delete surface; 
+  if (root != nullptr) {
+    root->delete_children();
+    delete root; 
+  } 
 }
 
 
@@ -60,17 +66,24 @@ void Game::get_input() {
 void Game::update()
 {
   if (quad_mode) {
+    root->delete_children();
+    delete root;
+    root = new Quad(1, W-1, 1, H-1);
+    for (int i = 0; i < AMNT_CIRCLES; ++i) {
+      root->v.push_back(v[i]);
+    }
+    root->build();
+    root->update();
   }
   else {
-    for (std::vector< Circle >::iterator i = v.begin(); i != v.end(); ++i) {
-      for (std::vector< Circle >::iterator j = std::next(i); j != v.end(); ++j) {
-        if (i != j)
-          i->handle_collision(*j);
+    for (std::vector< Circle * >::iterator i = v.begin(); i != v.end(); ++i) {
+      for (std::vector< Circle * >::iterator j = std::next(i); j != v.end(); ++j) {
+        (*i)->handle_collision(**j);
       }
     }
   }
   for (auto & i : v) {
-    i.update();
+    i->update();
   }
 }
 void Game::draw()
@@ -80,7 +93,7 @@ void Game::draw()
 
   if (quad_mode) {
     std::stack< Quad * > stack;
-    stack.push(&root);
+    stack.push(root);
     while (!stack.empty()) {
       Quad * t = stack.top(); stack.pop();
       if (t == nullptr)
@@ -92,9 +105,8 @@ void Game::draw()
       stack.push(t->children[3]);
     }
   }
-
   for (auto & i : v) {
-    i.draw();
+    i->draw();
   }
 
   surface->unlock();

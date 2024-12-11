@@ -11,6 +11,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <sstream>
+#include <memory>
 
 #include "Includes.h"
 #include "Object.h"
@@ -33,7 +34,7 @@ private:
   void update();
   void draw();
 
-  Quad root;
+  Quad * root;
   bool quad_mode;
   bool pressed;
 
@@ -42,7 +43,7 @@ private:
   { return (event.poll() && event.type() == QUIT); }
 
   // CIRCLES
-  std::vector< Circle > v;
+  std::vector< Circle * > v;
 
   // main objects for SDL
   Surface * surface;
