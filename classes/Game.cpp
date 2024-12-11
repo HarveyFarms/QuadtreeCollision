@@ -1,8 +1,8 @@
 #include "Game.h"
 
-
 Surface * Object::s_(NULL);
 Surface * Circle::s_(NULL);
+Surface * Quad::s_(NULL);
 int Circle::r(RADIUS);
 Color Circle::color(RED);
 
@@ -10,12 +10,14 @@ Game::Game() :
   surface(new Surface(W, H)),
   kp(get_keypressed()),
   keyboard(event),
+  root(1, W-1, 1, H-1),
   quad_mode(false),
   pressed(false)
 {
   srand((unsigned int) time(nullptr));
   Object::set_surface(surface);
   Circle::set_surface(surface);
+  Quad::set_surface(surface);
   for (int i = 0; i < AMNT_CIRCLES; ++i) {
     v.push_back(Circle(rand() % W, rand() % H));
   }
@@ -75,6 +77,21 @@ void Game::draw()
 {
   surface->lock();
   surface->fill(BLACK);
+
+  if (quad_mode) {
+    std::stack< Quad * > stack;
+    stack.push(&root);
+    while (!stack.empty()) {
+      Quad * t = stack.top(); stack.pop();
+      if (t == nullptr)
+        continue;
+      t->draw();
+      stack.push(t->children[0]);
+      stack.push(t->children[1]);
+      stack.push(t->children[2]);
+      stack.push(t->children[3]);
+    }
+  }
 
   for (auto & i : v) {
     i.draw();

@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <iostream>
+#include <stack>
 #include <cmath>
 #include <vector>
 #include <string>
@@ -15,6 +16,7 @@
 #include "Object.h"
 #include "Constants.h"
 #include "Circle.h"
+#include "Quadtree.h"
 #include "compgeom.h"
 #include "Surface.h"
 #include "Event.h"
@@ -31,6 +33,7 @@ private:
   void update();
   void draw();
 
+  Quad root;
   bool quad_mode;
   bool pressed;
 
