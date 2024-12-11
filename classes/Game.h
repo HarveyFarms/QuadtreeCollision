@@ -31,7 +31,8 @@ private:
   void update();
   void draw();
 
-  int amnt;
+  bool quad_mode;
+  bool pressed;
 
   // extra methods
   bool user_quits() 

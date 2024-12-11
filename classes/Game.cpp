@@ -10,7 +10,8 @@ Game::Game() :
   surface(new Surface(W, H)),
   kp(get_keypressed()),
   keyboard(event),
-  amnt(0)
+  quad_mode(false),
+  pressed(false)
 {
   srand((unsigned int) time(nullptr));
   Object::set_surface(surface);
@@ -34,11 +35,6 @@ void Game::run()
 
     get_input();
 
-    /* if (amnt < AMNT_CIRCLES) { */
-    /*   v.push_back(Circle(rand() % W, rand() % H)); */
-    /*   ++amnt; */
-    /* } */
-
     update();
 
     draw();
@@ -51,15 +47,24 @@ void Game::run()
   delay(50);
 }
 
-void Game::get_input()
-{
+void Game::get_input() {
+  if (kp[SPACE] && !pressed) {
+    quad_mode = !quad_mode;
+    pressed = true;
+  }
+  else if (!kp[SPACE])
+      pressed = false;
 }
 void Game::update()
 {
-  for (std::vector< Circle >::iterator i = v.begin(); i != v.end(); ++i) {
-    for (std::vector< Circle >::iterator j = std::next(i); j != v.end(); ++j) {
-      if (i != j)
-        i->handle_collision(*j);
+  if (quad_mode) {
+  }
+  else {
+    for (std::vector< Circle >::iterator i = v.begin(); i != v.end(); ++i) {
+      for (std::vector< Circle >::iterator j = std::next(i); j != v.end(); ++j) {
+        if (i != j)
+          i->handle_collision(*j);
+      }
     }
   }
   for (auto & i : v) {
