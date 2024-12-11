@@ -1,7 +1,7 @@
 d:	../main.cpp
-	cd .. ; g++ main.cpp src/*.cpp src/*.c classes/*.cpp `sdl-config --cflags --libs` -lSDL_image -lSDL_mixer -lSDL_ttf -Iincludes -Iclasses; ./a.out ; cd classes
-a:	main.cpp
-	cd .. ; g++ main.cpp src/*.cpp src/*.c classes/*.cpp -g -fsanitize=address `sdl-config --cflags --libs` -lSDL_image -lSDL_mixer -lSDL_ttf -Iincludes -Iclasses; ./a.out ; cd classes
+	cd .. ; make ; cd classes
+a:	../main.cpp
+	cd .. ; make a ; cd classes
 r run:
 	cd .. ; ./a.out ; cd classes
 git:
