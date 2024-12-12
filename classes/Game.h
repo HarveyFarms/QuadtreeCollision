@@ -51,4 +51,5 @@ private:
   KeyPressed kp;
   Keyboard keyboard;
 };
+Color random_color();
 #endif

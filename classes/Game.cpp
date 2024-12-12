@@ -1,10 +1,36 @@
 #include "Game.h"
 
+Color random_color() {
+  switch (rand() % 7) {
+    case 0:
+      return RED;
+      break;
+    case 1:
+      return WHITE;
+      break;
+    case 2:
+      return GREEN;
+      break;
+    case 3:
+      return YELLOW;
+      break;
+    case 4:
+      return CYAN;
+      break;
+    case 5:
+      return ORANGE;
+      break;
+    case 6:
+      return LITEPURP;
+      break;
+  }
+  return RED;
+}
+
 Surface * Object::s_(NULL);
 Surface * Circle::s_(NULL);
 Surface * Quad::s_(NULL);
 int Circle::r(RADIUS);
-Color Circle::color(RED);
 
 Game::Game() :
   surface(new Surface(W, H)),
@@ -19,7 +45,7 @@ Game::Game() :
   Circle::set_surface(surface);
   Quad::set_surface(surface);
   for (int i = 0; i < AMNT_CIRCLES; ++i) {
-    Circle * a = new Circle(rand() % W, rand() % H);
+    Circle * a = new Circle(rand() % W, rand() % H, random_color());
     v.push_back(a);
     root->v.push_back(v[i]);
   }

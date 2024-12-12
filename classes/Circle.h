@@ -5,8 +5,8 @@
 
 class Circle {
   public:
-    Circle(int a, int b)
-      : x(a), y(b) {
+    Circle(int a, int b, Color c)
+      : x(a), y(b), color(c) {
         bool moving = false;
         int longitude = rand() % 2;
         switch (longitude) {
@@ -87,7 +87,7 @@ class Circle {
     int y;
     vec2d direction;
     static int r;
-    static Color color;
+    Color color;
     static Surface * s_;
     static void set_surface(Surface * s)
     {
