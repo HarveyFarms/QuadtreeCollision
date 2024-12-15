@@ -14,7 +14,7 @@ const int GAME_IS_RUNNING = 1;
 const double AREA_OF_SPAWN = 0.2;
 const double COMPLEMENT = 1 - AREA_OF_SPAWN;
 const int RADIUS = 2;
-const int AMNT_CIRCLES = 1000;
+const int AMNT_CIRCLES = 5000;
 const int SPEED = 1;
 
 // math
